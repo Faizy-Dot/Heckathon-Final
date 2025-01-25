@@ -27,16 +27,23 @@ const Reception = () => {
     <div className="max-w-xl mx-auto mt-8 p-4 border rounded-lg shadow-md">
       <h1 className="text-xl font-bold mb-4">Reception Desk</h1>
       <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">CNIC</label>
         <input
           type="text"
           name="cnic"
-          placeholder="Enter CNIC"
           value={formData.cnic}
-          onChange={handleInputChange}
+          onChange={(e) => {
+            const inputValue = e.target.value;
+            if (inputValue.length <= 13 && /^\d*$/.test(inputValue)) {
+              setFormData({ ...formData, cnic: inputValue });
+            }
+          }}
+          placeholder="Enter up to 13 digits"
           className="w-full p-2 border rounded"
         />
       </div>
       <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Full Name</label>
         <input
           type="text"
           name="name"
@@ -47,6 +54,7 @@ const Reception = () => {
         />
       </div>
       <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Phone Number</label>
         <input
           type="text"
           name="phone"
@@ -57,6 +65,7 @@ const Reception = () => {
         />
       </div>
       <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Address</label>
         <input
           type="text"
           name="address"
@@ -67,6 +76,7 @@ const Reception = () => {
         />
       </div>
       <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700">Purpose of Visit</label>
         <select
           name="purpose"
           value={formData.purpose}
