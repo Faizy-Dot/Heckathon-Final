@@ -7,22 +7,17 @@ import OnlineUserModal from "../models/OnlineUsers.js";
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
+  const { name, cnic, phone, address, purpose, tokenNo } = req.body;
   try {
-    const { username, email, password } = req.body;
-
-    if (!username) return res.status(400).json({ message: "Plz fill Username" });
-    if (!email) return res.status(400).json({ message: "Plz fill Email" });
-    if (!password) return res.status(400).json({ message: "Plz fill Password" });
-    const existingUser = await UserModel.findOne({ email: email });
+    // Check if CNIC already exists
+    const existingUser = await UserModel.findOne({ cnic });
     if (existingUser) {
-      return res.status(400).json({ message: "User already exists" });
+      return res.status(400).json({ message: "User with this CNIC already exists" });
     }
 
-    const hashPassword = await bcrypt.hash(password, 12)
-
-    const newUser = new UserModel({ username, email, password: hashPassword });
+    // Create and save new user
+    const newUser = new UserModel({ name, cnic, phone, address, purpose, tokenNo });
     await newUser.save();
-
 
     res.status(201).json({ message: "User registered successfully", user: newUser });
   } catch (error) {
@@ -30,6 +25,7 @@ router.post("/register", async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 });
+
 
 router.get("/register", async (req, res) => {
   try {
