@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
 import Admin from "./admin/Admin";
 import ManageUsers from "./AdminComponents/ManageUser";
+import LandingPage from "./pages/landingPage/LandingPage";
 
 export default function App() {
   return (
