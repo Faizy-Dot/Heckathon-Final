@@ -1,23 +1,24 @@
-import mongoose from "mongoose"
+import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
 const userSchema = new Schema(
-    {
-        username: { type: String,required : true  },
-        email: { type: String ,unique : true, required : true },
-        password: { type: String , requried : true},
-        todos: [
-            {
-              type: String, // Define todos as an array of strings
-              required: true, // Ensure each todo in the array is mandatory
-            },
-          ],
-    }, {
-    timestamps: true
-}
-)
+  {
+    name: { type: String, required: true },
+    cnic: { type: String, unique: true, required: true }, // CNIC as a unique identifier
+    phone: { type: String, required: true }, // Phone number
+    address: { type: String, required: true }, // Address of the user
+    purpose: { 
+      type: String, 
+      required: true 
+    },
+    tokenNo: { type: Number, required: true },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-const UserModal = mongoose.model("users", userSchema)
+const UserModel = mongoose.model("users", userSchema);
 
-export default UserModal;
+export default UserModel;

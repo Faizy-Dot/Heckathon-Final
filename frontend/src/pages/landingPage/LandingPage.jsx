@@ -1,5 +1,3 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
 
 import { Link } from "react-router-dom";
 import "../../assets/saylani.png";
@@ -11,10 +9,7 @@ function HomePage() {
                 <img src="https://saylaniwelfare.com/static/media/logo_saylaniwelfare.22bf709605809177256c.png" alt="Saylani Welfare Logo" className="h-12"/>
                 <nav className="space-x-4">
                  <Link to="/reception" className="text-gray-600 hover:text-gray-800">Reception</Link>
-                    
-                    <Link to={'/department'} className="text-gray-600 hover:text-gray-800">DepartmentStaff</Link>
-                    <a href="#" className="text-gray-600 hover:text-gray-800">Beficiary Seeker</a>
-        
+                  <Link to={'/department'} className="text-gray-600 hover:text-gray-800">Department</Link>
                 </nav>
                 <div className="space-x-2">
                     <button className="bg-blue-600 text-white px-4 py-2 rounded">DONATE NOW</button>
