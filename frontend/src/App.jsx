@@ -12,7 +12,7 @@ export default function App() {
         <Route path="/" element={<HomePage/>} />
         <Route path="/admin" element={<AdminDashboard/>}/>
         <Route path="/reception" element={<Reception />} />
-        <Route path="/department" element={<StaffForm />} />
+        <Route path="/departmentStaff" element={<StaffForm />} />
           </Routes>
     </BrowserRouter>
 

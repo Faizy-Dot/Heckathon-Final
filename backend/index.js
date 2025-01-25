@@ -14,7 +14,6 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use("/auth", authRoutes)
 
-const todos = ['welcome', 'hello']; // Store todos in memory
 
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("mongodb connected"))
@@ -24,7 +23,6 @@ mongoose.connect(process.env.MONGODB_URI)
 app.get("/", async (req, res) => {
 
   let users = await UserModal.find()
-  // console.log("usertodo=>", userTodo)
   res.status(200).json({ message: "users fetched successfully" , users : users });
 });
 

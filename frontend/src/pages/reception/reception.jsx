@@ -1,13 +1,50 @@
 import { useState } from "react";
 
 const Reception = () => {
+  const generateToken = () => Math.floor(1000 + Math.random() * 9000);
   const [formData, setFormData] = useState({
     cnic: "",
     name: "",
     phone: "",
     address: "",
     purpose: "",
+    tokenNo :  generateToken()
   });
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Generate a new token before submitting
+    const newToken = generateToken();
+    setFormData((prev) => ({ ...prev, tokenNo: newToken }));
+
+    console.log("formdata==>>>", { ...formData, tokenNo: newToken });
+
+    try {
+      const response = await fetch("http://localhost:5000/auth/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, tokenNo: newToken }),
+      });
+
+      const result = await response.json();
+      console.log("result==>>", result);
+
+      if (response.ok) {
+        alert("User registered successfully!");
+        console.log("Registered User:", result.name);
+      } else {
+        alert(result.message);
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+      alert("Server error. Please try again later.");
+    }
+  };
+
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -17,12 +54,7 @@ const Reception = () => {
   const handleSelectChange = (e) => {
     setFormData({ ...formData, purpose: e.target.value });
   };
-
-  const handleSubmit = () => {
-    console.log("Form Data:", formData);
-    alert("Token generated and sent via SMS!");
-  };
-
+  
   return (
     <div className="max-w-xl mx-auto mt-8 p-4 border rounded-lg shadow-md">
       <h1 className="text-xl font-bold mb-4">Reception Desk</h1>
