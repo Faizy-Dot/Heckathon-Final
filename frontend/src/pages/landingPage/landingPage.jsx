@@ -1,6 +1,7 @@
 // import React from 'react';
 // import { Link } from 'react-router-dom';
 
+import { Link } from "react-router-dom";
 import "../../assets/saylani.png";
 
 function HomePage() {
@@ -11,7 +12,7 @@ function HomePage() {
                 <nav className="space-x-4">
 
                     <a href="#" className="text-gray-600 hover:text-gray-800">Reception</a>
-                    <a href="#" className="text-gray-600 hover:text-gray-800">DepartmentStaff</a>
+                    <Link to={'/department'} className="text-gray-600 hover:text-gray-800">DepartmentStaff</Link>
                     <a href="#" className="text-gray-600 hover:text-gray-800">Beficiary Seeker</a>
         
                 </nav>
