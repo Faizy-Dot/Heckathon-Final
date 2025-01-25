@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/landingPage/landingPage";
+import HomePage from "./pages/landingPage/LandingPage";
 import AdminDashboard from "./admin/Admin";
 import StaffForm from "./pages/departmentStaff/department";
+
 
 
 export default function App() {
