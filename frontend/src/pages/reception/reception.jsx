@@ -54,14 +54,7 @@ const Reception = () => {
   const handleSelectChange = (e) => {
     setFormData({ ...formData, purpose: e.target.value });
   };
-
-<<<<<<< Updated upstream
-=======
-  const handleSubmit = () => {
-    console.log("Form Data:", formData);
-  };
->>>>>>> Stashed changes
-
+  
   return (
     <div className="max-w-xl mx-auto mt-8 p-4 border rounded-lg shadow-md">
       <h1 className="text-xl font-bold mb-4">Reception Desk</h1>
