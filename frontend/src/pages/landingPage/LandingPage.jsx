@@ -1,8 +1,8 @@
 // import React from 'react';
 // import { Link } from 'react-router-dom';
 
+import { Link } from "react-router-dom";
 import "../../assets/saylani.png";
-import { Link } from 'react-router-dom';
 function HomePage() {
     return (
         <div className="bg-white">
