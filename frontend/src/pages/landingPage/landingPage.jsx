@@ -9,7 +9,7 @@ function HomePage() {
             <header className="flex justify-between items-center p-4 border-b">
                 <img src="https://saylaniwelfare.com/static/media/logo_saylaniwelfare.22bf709605809177256c.png" alt="Saylani Welfare Logo" className="h-12"/>
                 <nav className="space-x-4">
-                    <Link to ={'/reception'} className="text-gray-600 hover:text-gray-800">Home</Link>
+
                     <a href="#" className="text-gray-600 hover:text-gray-800">Reception</a>
                     <a href="#" className="text-gray-600 hover:text-gray-800">DepartmentStaff</a>
                     <a href="#" className="text-gray-600 hover:text-gray-800">Beficiary Seeker</a>
