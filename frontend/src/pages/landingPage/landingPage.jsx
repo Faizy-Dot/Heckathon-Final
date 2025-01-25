@@ -12,7 +12,11 @@ function HomePage() {
                 <nav className="space-x-4">
                  <Link to="/reception" className="text-gray-600 hover:text-gray-800">Reception</Link>
                     
+<<<<<<< Updated upstream
                     <Link to={'/department'} className="text-gray-600 hover:text-gray-800">DepartmentStaff</Link>
+=======
+                    <Link to="/departmentStaff" className="text-gray-600 hover:text-gray-800">DepartmentStaff</Link>
+>>>>>>> Stashed changes
                     <a href="#" className="text-gray-600 hover:text-gray-800">Beficiary Seeker</a>
         
                 </nav>

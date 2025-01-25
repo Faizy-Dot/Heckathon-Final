@@ -44,6 +44,8 @@ const Reception = () => {
     }
   };
 
+  
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -53,6 +55,12 @@ const Reception = () => {
     setFormData({ ...formData, purpose: e.target.value });
   };
 
+<<<<<<< Updated upstream
+=======
+  const handleSubmit = () => {
+    console.log("Form Data:", formData);
+  };
+>>>>>>> Stashed changes
 
   return (
     <div className="max-w-xl mx-auto mt-8 p-4 border rounded-lg shadow-md">
