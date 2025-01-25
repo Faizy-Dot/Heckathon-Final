@@ -12,7 +12,7 @@ function HomePage() {
                 <nav className="space-x-4">
                  <Link to="/reception" className="text-gray-600 hover:text-gray-800">Reception</Link>
                     
-                    <a href="#" className="text-gray-600 hover:text-gray-800">DepartmentStaff</a>
+                    <Link to={'/department'} className="text-gray-600 hover:text-gray-800">DepartmentStaff</Link>
                     <a href="#" className="text-gray-600 hover:text-gray-800">Beficiary Seeker</a>
         
                 </nav>
