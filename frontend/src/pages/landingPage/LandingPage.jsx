@@ -2,15 +2,16 @@
 // import { Link } from 'react-router-dom';
 
 import "../../assets/saylani.png";
-
+import { Link } from 'react-router-dom';
 function HomePage() {
     return (
         <div className="bg-white">
-            <header className="flex justify-between items-center p-4 border-b">
+            <header className="flex justify-between items-center p-4 bord
+            er-b">
                 <img src="https://saylaniwelfare.com/static/media/logo_saylaniwelfare.22bf709605809177256c.png" alt="Saylani Welfare Logo" className="h-12"/>
                 <nav className="space-x-4">
-
-                    <a href="#" className="text-gray-600 hover:text-gray-800">Reception</a>
+                 <Link to="/reception" className="text-gray-600 hover:text-gray-800">Reception</Link>
+                    
                     <a href="#" className="text-gray-600 hover:text-gray-800">DepartmentStaff</a>
                     <a href="#" className="text-gray-600 hover:text-gray-800">Beficiary Seeker</a>
         
