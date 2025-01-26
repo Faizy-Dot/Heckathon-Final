@@ -13,7 +13,7 @@ function HomePage() {
                 </nav>
                 <div className="space-x-2">
                     <button className="bg-blue-600 text-white px-4 py-2 rounded">DONATE NOW</button>
-                    <button className="bg-green-500 text-white px-4 py-2 rounded">BE A SPONSOR</button>
+                    <Link to={'/admin'} className="bg-green-500 text-white px-4 py-2 rounded">Login Admin</Link>
                 </div>
             </header>
             <main className="p-8">

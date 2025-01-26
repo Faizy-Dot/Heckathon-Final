@@ -1,5 +1,6 @@
 import express from "express";
 import userClear from "../models/OnlineUsers.js";
+import UserModel from "../models/Users.js";
 
 const router = express.Router();
 
