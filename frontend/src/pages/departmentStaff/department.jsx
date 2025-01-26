@@ -1,25 +1,63 @@
 import { useState } from "react";
 
-
 const StaffForm = () => {
   const [token, setToken] = useState("");
   const [beneficiaryInfo, setBeneficiaryInfo] = useState(null);
   const [status, setStatus] = useState("In Progress");
   const [remarks, setRemarks] = useState("");
+  const [error, setError] = useState("");
 
-  const fetchBeneficiaryInfo = () => {
-    // Mock fetching data based on the token
-    setBeneficiaryInfo({
-      name: "John Doe",
-      age: 45,
-      assistanceType: "Financial Aid",
-    });
+  const fetchBeneficiaryInfo = async () => {
+    if (!token.trim()) {
+      setError("Token is required to retrieve beneficiary info.");
+      return;
+    }
+    setError("");
+  
+    try {
+      const response = await fetch("http://localhost:5000/auth/departmentStaff", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ tokenNo: token }),
+      });
+  
+      const result = await response.json();
+      if (response.ok) {
+        setBeneficiaryInfo(result.userData);
+        setError("");
+      } else {
+        setBeneficiaryInfo(null);
+        setError(result.message || "Failed to fetch beneficiary info");
+      }
+    } catch (error) {
+      console.error("Error fetching beneficiary info:", error);
+      setError("Server error. Please try again later.");
+    }
   };
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({ token, status, remarks });
+
+    if (!remarks.trim()) {
+      alert("Remarks are required before submitting.");
+      return;
+    }
+
+    console.log({
+      token,
+      status,
+      remarks,
+      beneficiaryInfo,
+    });
+
     alert("Assistance details updated successfully!");
+    setToken("");
+    setBeneficiaryInfo(null);
+    setRemarks("");
+    setStatus("In Progress");
   };
 
   return (
@@ -95,6 +133,11 @@ const StaffForm = () => {
                 Retrieve Info
               </button>
             </div>
+            {error && (
+              <p style={{ color: "red", fontSize: "0.875rem", marginTop: "0.5rem" }}>
+                {error}
+              </p>
+            )}
           </div>
 
           {beneficiaryInfo && (
@@ -110,7 +153,10 @@ const StaffForm = () => {
                 <strong>Name:</strong> {beneficiaryInfo.name}
               </p>
               <p style={{ fontSize: "0.875rem", color: "#374151" }}>
-                <strong>Age:</strong> {beneficiaryInfo.age}
+                <strong>Address:</strong> {beneficiaryInfo.address}
+              </p>
+              <p style={{ fontSize: "0.875rem", color: "#374151" }}>
+                <strong>CNIC:</strong> {beneficiaryInfo.cnic}
               </p>
               <p style={{ fontSize: "0.875rem", color: "#374151" }}>
                 <strong>Assistance Type:</strong> {beneficiaryInfo.assistanceType}
@@ -193,4 +239,3 @@ const StaffForm = () => {
 };
 
 export default StaffForm;
-
