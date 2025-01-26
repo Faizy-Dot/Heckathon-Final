@@ -26,6 +26,28 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/departmentStaff", async (req, res) => {
+  const { tokenNo } = req.body;
+
+  try {
+    // Validate input
+    if (!tokenNo) {
+      return res.status(400).json({ message: "Token number is required" });
+    }
+
+    // Fetch user data by tokenNo
+    const userData = await UserModel.findOne({ tokenNo });
+    if (!userData) {
+      return res.status(404).json({ message: "No user found with this token number" });
+    }
+
+    // Respond with user data
+    res.status(200).json({ message: "User data retrieved successfully", userData });
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
 
 router.get("/register", async (req, res) => {
   try {
@@ -40,30 +62,6 @@ router.get("/register", async (req, res) => {
   }
 });
 
-router.post("/login", async (req, res) => {
-  const { email, password } = req.body
-
-  const user = await UserModel.findOne({ email: email }).lean()
-
-  if (!user) return res.status(400).json({ message: "User is not registered" })
-
-  const isPasswordValid = await bcrypt.compare(password, user.password)
-  if (!isPasswordValid) return res.status(400).json({ message: "Invalid Password" })
-
-  var token = jwt.sign(user, process.env.AUTH_SECRET);
-
-  console.log("user from bakcend=>", user)
-
-  const addOnlineUser = new OnlineUserModal({
-    userId: user._id,
-    email: user.email,
-    username: user.username,
-    token: token,
-  })
-  await addOnlineUser.save();
-
-  res.status(201).json({ message: "User Login successfully", user: user, token: token });
-})
 
 router.get("/onlineUsers" , async (req , res)=>{
   try {
