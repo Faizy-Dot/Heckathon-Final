@@ -1,8 +1,5 @@
 import express from "express";
-import UserModel from "../models/Users.js";
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
-import OnlineUserModal from "../models/OnlineUsers.js";
+import userClear from "../models/OnlineUsers.js";
 
 const router = express.Router();
 
@@ -49,6 +46,43 @@ router.post("/departmentStaff", async (req, res) => {
   }
 });
 
+router.post("/userClear", async (req, res) => {
+  const { userId, remarks, updateStatus } = req.body;
+
+  // Validate request body
+  if (!userId || !remarks || !updateStatus) {
+    return res.status(400).json({
+      success: false,
+      message: "All fields (userId, remarks, updateStatus) are required.",
+    });
+  }
+
+  try {
+    // Create a new record
+    const newUserClear = new userClear({
+      userId,
+      remarks,
+      updateStatus,
+    });
+
+    // Save the record to the database
+    const savedRecord = await newUserClear.save();
+
+    // Send a success response
+    return res.status(201).json({
+      success: true,
+      message: "User clearance updated successfully.",
+      data: savedRecord,
+    });
+  } catch (error) {
+    console.error("Error saving user clearance:", error);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred while updating user clearance.",
+    });
+  }
+});
+
 router.get("/register", async (req, res) => {
   try {
     const allUsers = await UserModel.find(); // Fetch all users from the database
@@ -63,7 +97,7 @@ router.get("/register", async (req, res) => {
 });
 
 
-router.get("/onlineUsers" , async (req , res)=>{
+router.get("/onlineUsers", async (req, res) => {
   try {
     const onlineUsers = await OnlineUserModal.find(); // Fetch all users from the database
     res.status(200).json({
@@ -77,11 +111,11 @@ router.get("/onlineUsers" , async (req , res)=>{
 })
 
 router.delete("/login", async (req, res) => {
-  const { user} = req.query
+  const { user } = req.query
 
   // Delete the user by their `_id`
-  const offlineUser = await OnlineUserModal.deleteOne({ userId : user[0].user._id});
-console.log("deleteUser=>", user[0].user._id)
+  const offlineUser = await OnlineUserModal.deleteOne({ userId: user[0].user._id });
+  console.log("deleteUser=>", user[0].user._id)
 
   res.status(201).json({ message: "Signout successfully" });
 })

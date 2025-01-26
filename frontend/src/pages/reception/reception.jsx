@@ -38,7 +38,6 @@ const Reception = () => {
       if (response.ok) {
         alert("User registered successfully!");
         console.log("Registered User:", result.name);
-       navigate('/departmentStaff')
       } else {
         alert(result.message);
       }

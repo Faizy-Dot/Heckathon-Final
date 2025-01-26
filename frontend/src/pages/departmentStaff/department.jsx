@@ -266,6 +266,7 @@ const StaffForm = () => {
       });
 
       const result = await response.json();
+      console.log("token add=>>",result)
       if (response.ok) {
         setBeneficiaryInfo(result.userData);
         setError("");
@@ -293,17 +294,50 @@ const StaffForm = () => {
     document.body.removeChild(link);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!remarks.trim()) {
       alert("Remarks are required before submitting.");
       return;
     }
-
-    setShowReceipt(true);
-    alert("Assistance details updated successfully!");
+  
+    try {
+      // Construct the payload
+      const payload = {
+        userId: beneficiaryInfo?._id, // Ensure `beneficiaryInfo` has a `_id` field
+        remarks,
+        updateStatus: status,
+      };
+  
+      // Make the API call
+      const response = await fetch("http://localhost:5000/auth/userClear", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        setShowReceipt(true);
+        alert("Assistance details updated successfully!");
+        setToken("");
+        setBeneficiaryInfo(null);
+        setRemarks("");
+        setStatus("In Progress");
+      } else {
+        // Handle API errors
+        alert(result.message || "Failed to update assistance details.");
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred. Please try again later.");
+    }
   };
+  
 
   return (
     <div
@@ -511,7 +545,7 @@ const StaffForm = () => {
                   <strong>CNIC:</strong> {beneficiaryInfo.cnic}
                 </p>
                 <p style={{ fontSize: "0.875rem", color: "#374151" }}>
-                  <strong>Assistance Type:</strong> {beneficiaryInfo.assistanceType}
+                  <strong>Assistance Type:</strong> {beneficiaryInfo.purpose}
                 </p>
               </div>
             )}
