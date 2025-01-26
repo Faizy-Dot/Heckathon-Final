@@ -8,7 +8,7 @@ const StaffForm = () => {
   const [status, setStatus] = useState("In Progress");
   const [remarks, setRemarks] = useState("");
   const [error, setError] = useState("");
-  // const [showReceipt, setShowReceipt] = useState(false);
+  const [showReceipt, setShowReceipt] = useState(false);
 
   const fetchBeneficiaryInfo = async () => {
     if (!token.trim()) {
