@@ -191,7 +191,7 @@
 //                 {error}
 //               </p>
 //             )}
-//           </div>
+          // </div>
 
 //           {beneficiaryInfo && (
 //             <div
