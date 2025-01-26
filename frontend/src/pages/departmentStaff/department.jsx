@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const StaffForm = () => {
   const [token, setToken] = useState("");
@@ -42,7 +43,7 @@ const StaffForm = () => {
     e.preventDefault();
 
     if (!remarks.trim()) {
-      alert("Remarks are required before submitting.");
+      Swal.fire("Remarks are required before submitting.")
       return;
     }
 
@@ -53,7 +54,7 @@ const StaffForm = () => {
       beneficiaryInfo,
     });
 
-    alert("Assistance details updated successfully!");
+    Swal.fire("Assistance details updated successfully!");
     setToken("");
     setBeneficiaryInfo(null);
     setRemarks("");
