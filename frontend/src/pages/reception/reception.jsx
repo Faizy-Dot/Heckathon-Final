@@ -1,8 +1,10 @@
 import { useState } from "react";
 import {  useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Reception = () => {
   const generateToken = () => Math.floor(1000 + Math.random() * 9000);
+  const [results , setResults] = useState('')
   const [formData, setFormData] = useState({
     cnic: "",
     name: "",
@@ -34,16 +36,16 @@ const Reception = () => {
 
       const result = await response.json();
       console.log("result==>>", result);
-
+       setResults(result)
       if (response.ok) {
-        alert("User registered successfully!");
+        Swal.fire("User registered successfully!");
         console.log("Registered User:", result.name);
-      } else {
-        alert(result.message);
+  } else {
+        Swal.fire(result.message);
       }
     } catch (error) {
       console.error("Error during registration:", error);
-      alert("Server error. Please try again later.");
+      Swal.fire("Server error. Please try again later.");
     }
   };
 
@@ -133,6 +135,11 @@ const Reception = () => {
       >
         Generate Token
       </button>
+      {results && (
+         <div className="mt-4 bg-green-100 p-4 rounded text-center">
+         {results.user.tokenNo}
+       </div>
+        )}
     </div>
   );
 };
