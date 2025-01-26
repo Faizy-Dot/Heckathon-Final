@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import Swal from "sweetalert2";
 
@@ -7,6 +8,7 @@ const StaffForm = () => {
   const [status, setStatus] = useState("In Progress");
   const [remarks, setRemarks] = useState("");
   const [error, setError] = useState("");
+  // const [showReceipt, setShowReceipt] = useState(false);
 
   const fetchBeneficiaryInfo = async () => {
     if (!token.trim()) {
@@ -14,7 +16,7 @@ const StaffForm = () => {
       return;
     }
     setError("");
-  
+
     try {
       const response = await fetch("http://localhost:5000/auth/departmentStaff", {
         method: "POST",
@@ -23,7 +25,7 @@ const StaffForm = () => {
         },
         body: JSON.stringify({ tokenNo: token }),
       });
-  
+
       const result = await response.json();
       if (response.ok) {
         setBeneficiaryInfo(result.userData);
@@ -37,7 +39,20 @@ const StaffForm = () => {
       setError("Server error. Please try again later.");
     }
   };
-  
+
+  const handleDownloadReceipt = () => {
+    const receiptContent = `Receipt\n\nToken Number: ${token}\nStatus: ${status}\nRemarks: ${remarks}\n\nBeneficiary Information:\nName: ${beneficiaryInfo?.name}\nAddress: ${beneficiaryInfo?.address}\nCNIC: ${beneficiaryInfo?.cnic}\nAssistance Type: ${beneficiaryInfo?.assistanceType}`;
+
+    const blob = new Blob([receiptContent], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `Receipt_${token}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,7 +74,6 @@ const StaffForm = () => {
     setBeneficiaryInfo(null);
     setRemarks("");
     setStatus("In Progress");
-  };
 
   return (
     <div
@@ -234,9 +248,62 @@ const StaffForm = () => {
             </button>
           </div>
         </form>
+
+        {showReceipt && (
+          <div
+            style={{
+              marginTop: "1rem",
+              padding: "1rem",
+              backgroundColor: "#f9fafb",
+              border: "1px solid #d1d5db",
+              borderRadius: "4px",
+            }}
+          >
+            <h3 style={{ fontSize: "1rem", color: "#374151" }}>Receipt</h3>
+            <p style={{ fontSize: "0.875rem", color: "#374151" }}>
+              <strong>Token Number:</strong> {token}
+            </p>
+            <p style={{ fontSize: "0.875rem", color: "#374151" }}>
+              <strong>Status:</strong> {status}
+            </p>
+            <p style={{ fontSize: "0.875rem", color: "#374151" }}>
+              <strong>Remarks:</strong> {remarks}
+            </p>
+            {beneficiaryInfo && (
+              <div>
+                <p style={{ fontSize: "0.875rem", color: "#374151" }}>
+                  <strong>Name:</strong> {beneficiaryInfo.name}
+                </p>
+                <p style={{ fontSize: "0.875rem", color: "#374151" }}>
+                  <strong>Address:</strong> {beneficiaryInfo.address}
+                </p>
+                <p style={{ fontSize: "0.875rem", color: "#374151" }}>
+                  <strong>CNIC:</strong> {beneficiaryInfo.cnic}
+                </p>
+                <p style={{ fontSize: "0.875rem", color: "#374151" }}>
+                  <strong>Assistance Type:</strong> {beneficiaryInfo.assistanceType}
+                </p>
+              </div>
+            )}
+            <button
+              onClick={handleDownloadReceipt}
+              style={{
+                marginTop: "1rem",
+                padding: "0.5rem 1rem",
+                backgroundColor: "#10b981",
+                color: "#ffffff",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+              }}
+            >
+              Download Receipt
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
 };
-
+}
 export default StaffForm;
