@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 
 const Reception = () => {
   const generateToken = () => Math.floor(1000 + Math.random() * 9000);
+  const [results , setResults] = useState('')
   const [formData, setFormData] = useState({
     cnic: "",
     name: "",
@@ -35,11 +36,11 @@ const Reception = () => {
 
       const result = await response.json();
       console.log("result==>>", result);
-
+       setResults(result)
       if (response.ok) {
         Swal.fire("User registered successfully!");
         console.log("Registered User:", result.name);
-       navigate('/departmentStaff')
+      //  navigate('/departmentStaff')
       } else {
         Swal.fire(result.message);
       }
@@ -135,8 +136,16 @@ const Reception = () => {
       >
         Generate Token
       </button>
+<<<<<<< Updated upstream
      
       
+=======
+      {results && (
+         <div className="mt-4 bg-green-100 p-4 rounded text-center">
+         {results.user.tokenNo}
+       </div>
+        )}
+>>>>>>> Stashed changes
     </div>
   );
 };
