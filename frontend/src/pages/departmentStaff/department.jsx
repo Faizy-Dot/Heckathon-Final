@@ -159,7 +159,7 @@ const StaffForm = () => {
                 <strong>CNIC:</strong> {beneficiaryInfo.cnic}
               </p>
               <p style={{ fontSize: "0.875rem", color: "#374151" }}>
-                <strong>Assistance Type:</strong> {beneficiaryInfo.assistanceType}
+                <strong>Assistance Type:</strong> {beneficiaryInfo.purpose}
               </p>
             </div>
           )}
