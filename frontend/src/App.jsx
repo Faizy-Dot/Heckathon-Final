@@ -1,8 +1,8 @@
 import Reception from "./pages/reception/reception";
 import StaffForm from "./pages/departmentStaff/department";
 import AdminDashboard from "./admin/Admin";
-import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
-import HomePage from "./pages/landingPage/LandingPage";
+import HomePage from "./pages/landingPage/landingPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 
 export default function App() {

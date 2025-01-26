@@ -1,4 +1,5 @@
 import { useState } from "react";
+import {  useNavigate } from "react-router-dom";
 
 const Reception = () => {
   const generateToken = () => Math.floor(1000 + Math.random() * 9000);
@@ -10,7 +11,9 @@ const Reception = () => {
     purpose: "",
     tokenNo :  generateToken()
   });
-  
+   
+  const navigate = useNavigate()
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -35,6 +38,7 @@ const Reception = () => {
       if (response.ok) {
         alert("User registered successfully!");
         console.log("Registered User:", result.name);
+       navigate('/departmentStaff')
       } else {
         alert(result.message);
       }
@@ -123,7 +127,8 @@ const Reception = () => {
           <option value="Other">Other</option>
         </select>
       </div>
-      <button
+
+       <button
         onClick={handleSubmit}
         className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
       >
