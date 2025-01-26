@@ -13,6 +13,7 @@ export default function App() {
         <Route path="/admin" element={<AdminDashboard/>}/>
         <Route path="/reception" element={<Reception />} />
         <Route path="/departmentStaff" element={<StaffForm />} />
+        
           </Routes>
     </BrowserRouter>
 
