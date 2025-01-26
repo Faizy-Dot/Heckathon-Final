@@ -136,16 +136,11 @@ const Reception = () => {
       >
         Generate Token
       </button>
-<<<<<<< Updated upstream
-     
-      
-=======
       {results && (
          <div className="mt-4 bg-green-100 p-4 rounded text-center">
          {results.user.tokenNo}
        </div>
         )}
->>>>>>> Stashed changes
     </div>
   );
 };
